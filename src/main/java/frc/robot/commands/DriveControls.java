@@ -7,16 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.OI;
 
 public class DriveControls extends CommandBase {
 
   Drivetrain drivetrain;
-  XboxController driverController;
 
   /** Creates a new DriveControls. */
   public DriveControls(Drivetrain drivetrain_) {
     drivetrain = drivetrain_;
-    driverController = new XboxController(1);
     addRequirements(drivetrain);
   }
 
@@ -29,8 +28,8 @@ public class DriveControls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double left = driverController.getRawAxis(1);
-    double right = driverController.getRawAxis(5);
+    double left = OI.driverController.getRawAxis(1);
+    double right = OI.driverController.getRawAxis(5);
     drivetrain.setPower(left, right);
   }
 

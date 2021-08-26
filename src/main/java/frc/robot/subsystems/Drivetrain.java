@@ -51,7 +51,12 @@ public class Drivetrain extends SubsystemBase {
     rightFollower2.setSafetyEnabled(false);
 
     leftLeader.setInverted(false);
+    leftFollower.setInverted(false);
+    leftFollower2.setInverted(false);
+
     rightLeader.setInverted(true);
+    rightFollower.setInverted(true);
+    rightFollower2.setInverted(true);
 
     leftFollower.follow(leftLeader);
     leftFollower2.follow(leftLeader);
