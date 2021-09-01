@@ -4,39 +4,48 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Cow;
 import frc.robot.subsystems.OI;
 
-public class DriveControls extends CommandBase {
+public class CowControls extends CommandBase {
 
-  Drivetrain drivetrain;
+  Cow cow;
 
-  /** Creates a new DriveControls. */
-  public DriveControls(Drivetrain drivetrain_) {
-    drivetrain = drivetrain_;
-    addRequirements(drivetrain);
+  /** Creates a new CowControls. */
+  public CowControls(Cow cow_) {
+    cow = cow_;
+    addRequirements(cow);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.setPower(0, 0);
+    cow.init();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double left = OI.driverController.getRawAxis(1);
-    double right = OI.driverController.getRawAxis(5);
-    drivetrain.setPower(left*(-0.5), right*(-0.5));
+    if (OI.driverController.getXButtonPressed()){
+      System.out.println("Moo");
+      cow.moo(false);
+    } else {
+      cow.moo(true);
+    }
+
+    if (OI.driverController.getYButtonPressed()){
+      //We either need a random timer here or in the Raspberry Pi
+      // Probably the Pi due to the WPILib periodic model
+      cow.poop();
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.setPower(0, 0);
+    cow.init();
   }
 
   // Returns true when the command should end.

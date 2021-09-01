@@ -95,6 +95,11 @@ public class Robot extends TimedRobot {
     if (teleop != null) {
       teleop.schedule(); // Run the teleoperation command.
     }
+
+    Command cowCmd = m_robotContainer.getCowCommand();
+    if (cowCmd != null) {
+      cowCmd.schedule();
+    }
   }
 
   /** This function is called periodically during operator control. */
