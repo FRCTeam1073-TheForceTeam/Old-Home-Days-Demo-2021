@@ -1,5 +1,7 @@
-# Project Name: Robocow
-# Description: This code runs the robocow which was used for cow patty bingo at Old Home Days and may be used at future events.
+# Project Name:
+Robocow
+# Description: 
+This code runs the robocow which was used for cow patty bingo at Old Home Days and may be used at future events.
 # Components:
 1. Standard roboRIO WPILib robot code, based on robot21
 1. Python code and MP3 files which run the sound effects and the "pooper" mechanism on the Raspberry Pi
