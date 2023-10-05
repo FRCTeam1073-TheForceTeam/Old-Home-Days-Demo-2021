@@ -37,8 +37,13 @@ public class DriveControls extends CommandBase {
 		forward = -OI.driverController.getRawAxis(1);
 		rotational = OI.driverController.getRawAxis(4);
 		
-		/* Outputs Checked Controller Data to Motors */
-		arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
+		if(!drivetrain.getCruiseControl()){
+			/* Outputs Checked Controller Data to Motors */
+			arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
+		}
+		else{
+			
+		}
   }
 
   public void arcaderDrive(double fwd, double rot) {
