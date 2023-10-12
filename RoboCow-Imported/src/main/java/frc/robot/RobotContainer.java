@@ -22,9 +22,9 @@ public class RobotContainer {
 
     public RobotContainer() {
         drivetrain = new Drivetrain();
-        driveControls = new DriveControls(drivetrain);
         oi = new OI();
-
+        driveControls = new DriveControls(drivetrain, oi);
+        
         cow = new Cow();
         cowControls= new CowControls(cow);
         

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
@@ -12,11 +13,20 @@ import frc.robot.subsystems.OI;
 public class DriveControls extends CommandBase {
 
   Drivetrain drivetrain;
+  OI oi;
   double forward, rotational, deadzone = 0.1, leftMotorOutput, rightMotorOutput;
+  double constantForward;
+  boolean isCruiseControl;
+  boolean lastIsCruiseControl;
+  boolean cruiseFlag;
 
   /** Creates a new DriveControls. */
-  public DriveControls(Drivetrain drivetrain_) {
+  public DriveControls(Drivetrain drivetrain_, OI oi_) {
     drivetrain = drivetrain_;
+	oi = oi_;
+	isCruiseControl = false;
+	lastIsCruiseControl = false;
+	cruiseFlag = true;
     addRequirements(drivetrain);
   }
 
@@ -36,13 +46,28 @@ public class DriveControls extends CommandBase {
     /* Controller Data */
 		forward = -OI.driverController.getRawAxis(1);
 		rotational = OI.driverController.getRawAxis(4);
+
+		forward = MathUtil.clamp(forward, -1.0, 1.0);
+		rotational = MathUtil.clamp(rotational, -1.0, 1.0);
 		
-		if(!drivetrain.getCruiseControl()){
-			/* Outputs Checked Controller Data to Motors */
-			arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
+		if(oi.getCruiseControlButton() && lastIsCruiseControl == false){
+			isCruiseControl = !isCruiseControl;
+		}
+		lastIsCruiseControl = false;
+
+		if(isCruiseControl){
+			if(cruiseFlag){
+				constantForward = forward;
+				cruiseFlag = false;
+			}
+		
+			constantForward = MathUtil.clamp(constantForward, -1, 1);
+	
+			arcaderDrive(limit(deadZoneCheck(constantForward)), limit(deadZoneCheck(rotational)));
 		}
 		else{
-			
+			arcaderDrive(limit(deadZoneCheck(forward)), limit(deadZoneCheck(rotational)));
+			cruiseFlag = true;
 		}
   }
 

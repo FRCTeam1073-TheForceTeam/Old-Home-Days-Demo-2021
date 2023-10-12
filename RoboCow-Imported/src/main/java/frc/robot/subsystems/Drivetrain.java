@@ -21,8 +21,6 @@ public class Drivetrain extends SubsystemBase {
   WPI_VictorSPX rightFollower2;
   ADXRS450_Gyro gyro;
 
-  boolean isCruiseControl;
-
   public Drivetrain() {
     leftLeader = new WPI_TalonSRX(12);
     leftFollower = new WPI_VictorSPX(14);
@@ -31,8 +29,6 @@ public class Drivetrain extends SubsystemBase {
     rightLeader = new WPI_TalonSRX(13);
     rightFollower = new WPI_VictorSPX(15);
     rightFollower2 = new WPI_VictorSPX(17);
-
-    isCruiseControl = false;
 
     configureDrivetrain();
   }
@@ -77,20 +73,6 @@ public class Drivetrain extends SubsystemBase {
   public void setPower(double left, double right) {
     leftLeader.set(ControlMode.PercentOutput, left);
     rightLeader.set(ControlMode.PercentOutput, right);
-  }
-
-  //sets isCruiseControl to true to let DriveControls know 
-  public void setCruiseControl(){
-    isCruiseControl = true;
-  }
-
-  //sets isCruiseControl to false to let DriveControls know 
-  public void setNormalDrive(){
-    isCruiseControl = false;
-  }
-  
-  //returns isCruiseControl
-  public boolean getCruiseControl(){
-    return isCruiseControl;
-  }
+  } 
+ 
 }
