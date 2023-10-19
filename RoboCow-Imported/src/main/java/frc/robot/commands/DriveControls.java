@@ -52,15 +52,23 @@ public class DriveControls extends CommandBase {
 		
 		if(oi.getCruiseControlButton() && lastIsCruiseControl == false){
 			isCruiseControl = !isCruiseControl;
+			System.out.println("Pressed" + isCruiseControl);
 		}
-		lastIsCruiseControl = false;
+		lastIsCruiseControl = oi.getCruiseControlButton();
 
 		if(isCruiseControl){
+			//observes speed at time button is pressed and sets that as the cruise speed
 			if(cruiseFlag){
 				constantForward = forward;
 				cruiseFlag = false;
+				System.out.println("ran once");
 			}
 		
+			//increments speed while in cruise control
+			if(Math.abs(forward) > 0.5){
+				constantForward += forward * 0.005;
+			}
+			
 			constantForward = MathUtil.clamp(constantForward, -1, 1);
 	
 			arcaderDrive(limit(deadZoneCheck(constantForward)), limit(deadZoneCheck(rotational)));
