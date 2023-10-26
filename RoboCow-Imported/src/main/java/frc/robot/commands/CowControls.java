@@ -34,13 +34,25 @@ public class CowControls extends CommandBase {
       cow.moo(true);
     }
 
+    //We either need a random timer here or in the Raspberry Pi
+    // Probably the Pi due to the WPILib periodic model
     if (OI.driverController.getYButtonPressed()){
-      //We either need a random timer here or in the Raspberry Pi
-      // Probably the Pi due to the WPILib periodic model
-      cow.poop();
+      System.out.println("Poop");
+      cow.poop(false);
+    } else {
+      cow.poop(true);
     }
 
+    if (OI.driverController.getPOV() == 180){
+      System.out.println("Poop on command");
+      cow.poopOnCommand(false);
+    }
+    else{
+      cow.poopOnCommand(true);
+    }
   }
+
+
 
   // Called once the command ends or is interrupted.
   @Override

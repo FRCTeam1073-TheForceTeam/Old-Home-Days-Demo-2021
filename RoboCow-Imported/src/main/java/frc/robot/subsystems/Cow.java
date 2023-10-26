@@ -32,9 +32,16 @@ public void init(){
   /**
    * Tells the Raspberry Pi to drop the poop
    */
-  public void poop() {
-    if (pooper.isPulsing() == false)
-    pooper.pulse(5);//What units is pulse length?
+  public void poop(boolean poopControl) {
+    // if (pooper.isPulsing() == false)
+    // pooper.pulse(5);//What units is pulse length?
+    pooper.set(poopControl);
+  }
+
+  public void poopOnCommand(boolean poopControl) {
+    // if (pooper.isPulsing() == false)
+    // pooper.pulse(5);//What units is pulse length?
+    pooper.set(poopControl);
   }
 
 
